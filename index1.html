@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Countdown: Team Kiburi vs Spurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #c8102e;
+        }
+        #message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .countdown {
+            font-size: 2em;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        /* Animation for displaying each transition */
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add a delay between the transitions */
+        .fade-in {
+            animation: fadeSlideIn 1s forwards; /* Fades in over 1 second */
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Team Kiburi vs Spurs</h1>
+    <div class="countdown" id="countdown">3</div>
+    <div id="message"></div>
+
+    <!-- Restart Button -->
+    <button id="restart">Restart</button>
+
+    <script>
+        // Function for the countdown and animations
+        function lifeInGoalsCountdown(seconds) {
+            let countdown = seconds;
+            const countdownElement = document.getElementById("countdown");
+            const messageElement = document.getElementById("message");
+
+            const interval = setInterval(() => {
+                countdownElement.style.opacity = "1";
+                countdownElement.classList.add("fade-in");
+
+                switch (countdown) {
+                    case 3:
+                        messageElement.textContent = "3rd Minute: Brennan Johnson scores! Just like the first time I saw you try to Pullout";
+                        messageElement.classList.add("fade-in");
+                        break;
+                    case 2:
+                        messageElement.textContent = "47th Minute: Dejan makes it 2-0. At this rate, even my grandma could score against you!";
+                        messageElement.classList.add("fade-in");
+                        break;
+                    case 1:
+                        messageElement.textContent = "77th Minute: Dominic seals the deal. Looks like the only thing getting kicked today is your ego!";
+                        messageElement.classList.add("fade-in");
+                        break;
+                    case 0:
+                        countdownElement.textContent = "Time's up!";
+                        messageElement.textContent = "";
+                        setTimeout(() => {
+                            messageElement.textContent = "Just like Manchester United's hopes this season!";
+                            messageElement.classList.add("fade-in");
+                        }, 1000);
+                        clearInterval(interval);
+                        break;
+                }
+
+                countdown--; // Decrement countdown
+
+            }, 3000); // Wait 3 seconds between transitions
+        }
+
+        // Initialize countdown
+        lifeInGoalsCountdown(3);
+
+        // Restart functionality
+        document.getElementById("restart").addEventListener("click", function() {
+            // Reset countdown and message
+            const countdownElement = document.getElementById("countdown");
+            const messageElement = document.getElementById("message");
+
+            countdownElement.textContent = "3"; // Reset countdown number
+            messageElement.textContent = ""; // Clear message content
+
+            // Remove fade-in classes to allow re-adding later
+            countdownElement.classList.remove("fade-in");
+            messageElement.classList.remove("fade-in");
+
+            // Restart the countdown
+            lifeInGoalsCountdown(3);
+        });
+    </script>
+</body>
+</html>
